@@ -1,66 +1,71 @@
-# **ATTENTION**
 
-`pcb-tools` is currently without a maintainer. Code is provided as is. Check https://github.com/curtacircuitos/pcb-tools/issues/228 to a list of possible alternatives. [PyGerber](https://github.com/Argmaster/pygerber) or other forks of `pcb-tools` might be what you need.
+# PCB-Tools Installation Guide for Blender Python
 
-pcb-tools
-============
-[![CI](https://github.com/curtacircuitos/pcb-tools/workflows/pcb-tools/badge.svg)](https://github.com/curtacircuitos/pcb-tools/actions)
-[![Coverage](https://codecov.io/gh/curtacircuitos/pcb-tools/branch/master/graph/badge.svg)](https://codecov.io/gh/curtacircuitos/pcb-tools)
-[![Docs](https://readthedocs.org/projects/pcb-tools/badge/?version=latest)](https://readthedocs.org/projects/pcb-tools/?badge=latest)
+This guide outlines the steps to install `PCB-Tools` and its dependencies within Blender's bundled Python environment.
 
-Tools to handle Gerber and Excellon files in Python.
+---
 
-Usage Example:
----------------
+## Steps:
 
-```py
-import gerber
-from gerber.render import GerberCairoContext
+### 1. Locate Blender's Python Executable
+1. Open Blender.
+2. Go to `Scripting` tab and open the Python console.
+3. Run the following command to locate Blender's Python executable:
+   ```python
+   import sys
+   print(sys.executable)
+   ```
+   Example output:
+   ```
+   C:\Program Files\Blender Foundation\Blender 4.3\4.3\python\bin\python.exe
+   ```
 
-# Read gerber and Excellon files
-top_copper = gerber.read('example.GTL')
-nc_drill = gerber.read('example.txt')
+### 2. Clone the PCB-Tools Repository
+1. Open your terminal or command prompt.
+2. Clone the `PCB-Tools` repository:
+   ```bash
+   git clone https://github.com/curtacircuitos/pcb-tools.git
+   ```
+3. Navigate to the cloned repository:
+   ```bash
+   cd pcb-tools
+   ```
 
-# Rendering context
-ctx = GerberCairoContext()
+### 3. Install Dependencies
 
-# Create SVG image
-top_copper.render(ctx)
-nc_drill.render(ctx, 'composite.svg')
+!!! The package should be installed on Blender's python environment, so you can install it using the system's Python on the Blender environment path or manage path. !!!
+
+Run the following command to install the required dependencies:
+```bash
+"C:\Program Files\Blender Foundation\Blender 4.3\4.3\python\bin\python.exe" -m pip install -r requirements.txt --target "C:\Program Files\Blender Foundation\Blender 4.3\4.3\python\lib\site-packages"
 ```
 
-Rendering Examples:
--------------------
-### Top Composite rendering
-![Composite Top Image](examples/cairo_example.png)
-![Composite Bottom Image](examples/cairo_bottom.png)
-
-Source code for this example can be found [here](examples/cairo_example.py).
-
-
-Install from source:
-```
-$ git clone https://github.com/curtacircuitos/pcb-tools.git
-$ cd pcb-tools
-$ pip install -r requirements.txt
-$ python setup.py install
+### 4. Install PCB-Tools
+Run the following command to install the `PCB-Tools` package:
+```bash
+"C:\Program Files\Blender Foundation\Blender 4.3\4.3\python\bin\python.exe" -m pip install . --target "C:\Program Files\Blender Foundation\Blender 4.3\4.3\python\lib\site-packages"
 ```
 
-Documentation:
---------------
-[PCB Tools Documentation](http://pcb-tools.readthedocs.org/en/latest/)
+---
 
+## Verify Installation
+1. Open Blender and navigate to the `Scripting` tab.
+2. Open the Python console and run the following commands:
+   ```python
+   import cairocffi
+   import gerber
+   print("PCB-Tools and dependencies installed successfully!")
+   ```
 
-Development and Testing:
-------------------------
+If there are no errors, the installation is successful.
 
-Dependencies for developing and testing pcb-tools are listed in requirements-dev.txt. Use of a virtual environment is strongly recommended.
+---
 
-    $ virtualenv venv
-    $ source venv/bin/activate
-    (venv)$ pip install -r requirements-dev.txt
-    (venv)$ pip install -e .
+## Notes:
+- Ensure that the paths in the commands match your Blender installation path.
+- The `--target` option explicitly installs the packages in Blender's Python site-packages directory.
+- If you face issues, ensure you have sufficient permissions and run the command prompt as an administrator.
 
-We use [pytest](https://docs.pytest.org/en/latest/) to run pcb-tools's suite of unittests and doctests.
+---
 
-    (venv)$ pytest
+Enjoy using `PCB-Tools` in Blender!
